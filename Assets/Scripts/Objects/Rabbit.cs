@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rabbit : MonoBehaviour
+public class Rabbit : MonoBehaviour, InteractableObject
 {
     Animator animator;
 
@@ -17,8 +17,18 @@ public class Rabbit : MonoBehaviour
     public float waitCounter;
 
     int WalkDirection;
-
     public bool isWalking;
+    public string ItemName = "rabbit";
+
+    public string GetItemName()
+    {
+        return ItemName;
+    }
+
+    public void HandleClick()
+    {
+        
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +36,8 @@ public class Rabbit : MonoBehaviour
         animator = GetComponent<Animator>();
 
         //So that all the prefabs don't move/stop at the same time
-        walkTime = Random.Range(3, 6);
-        waitTime = Random.Range(5, 7);
+        walkTime = Random.Range(2, 6);
+        waitTime = Random.Range(2, 7);
 
 
         waitCounter = waitTime;

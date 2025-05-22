@@ -24,7 +24,7 @@ public class SelectionManager : MonoBehaviour
 
 
             InteractableObject component = selectionTransform.GetComponent<InteractableObject>();
-            if (component)
+            if (component != null)
             {
                 float distance = Vector3.Distance(Camera.main.transform.position, hit.point);
 
