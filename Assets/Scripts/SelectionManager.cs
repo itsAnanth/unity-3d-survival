@@ -23,21 +23,20 @@ public class SelectionManager : MonoBehaviour
             var selectionTransform = hit.transform;
 
 
-            if (selectionTransform.GetComponent<InteractableObject>())
+            InteractableObject component = selectionTransform.GetComponent<InteractableObject>();
+            if (component)
             {
                 float distance = Vector3.Distance(Camera.main.transform.position, hit.point);
 
                 if (distance > 3.0)
                     return;
 
-                
-                Debug.Log("found obj " + distance);
-                var component = selectionTransform.GetComponent<InteractableObject>();
                 interaction_text.text = component.GetItemName();
                 interaction_Info_UI.SetActive(true);
 
-                if (Input.GetKeyDown(KeyCode.Mouse0)) {
-                    component.PlaceInInventory();
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    component.HandleClick();
                 }
             }
             else

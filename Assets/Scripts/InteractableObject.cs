@@ -11,9 +11,10 @@ public class InteractableObject : MonoBehaviour
         return ItemName;
     }
 
-    public void PlaceInInventory()
-    {
-        Debug.Log("placed in inventory");
-        Destroy(gameObject);
+    public void HandleClick() {
+
+        IObjectAction obj = gameObject.GetComponent<IObjectAction>();
+
+        obj.OnClick();
     }
 }
