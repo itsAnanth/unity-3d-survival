@@ -13,7 +13,7 @@ public class Tree : MonoBehaviour, InteractableObject
 
     public void HandleClick()
     {
-        
+        Destroy(gameObject);
     }
 
 }
