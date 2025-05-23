@@ -27,6 +27,8 @@ public class Bear : MonoBehaviour, InteractableObject
 
     void Update()
     {
+        AlignToGround();
+        
         if (playerInRange && player != null)
         {
             // Vector3 forward = Vector3.ProjectOnPlane(transform.forward, hit.normal).normalized;
@@ -54,18 +56,21 @@ public class Bear : MonoBehaviour, InteractableObject
     void AlignToGround()
     {
         RaycastHit hit;
+
+        // Cast down from slightly above the bear to detect the ground
         if (Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hit, 5f))
         {
-            // Get the ground normal
-            Vector3 groundNormal = hit.normal;
+            // Calculate the forward direction projected onto the slope
+            Vector3 forward = Vector3.ProjectOnPlane(transform.forward, hit.normal).normalized;
 
-            // Rotate the bear to align with the slope, but only tilt (not twist)
-            Quaternion targetRotation = Quaternion.FromToRotation(transform.up, groundNormal) * transform.rotation;
+            // Calculate the rotation that faces forward along the slope
+            Quaternion targetRotation = Quaternion.LookRotation(forward, hit.normal);
 
-            // Smooth rotation
+            // Smoothly rotate the bear to match the slope
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
     }
+
 
     void OnTriggerEnter(Collider other)
     {
